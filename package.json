@@ -2,7 +2,7 @@
     "name": "file-ext-switcher",
     "displayName": "file-ext-switcher",
     "description": "Quickly switch between different files with the same name before the extension (e.g. angular2 component .ts, .css and .html files).",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "publisher": "JohannesRudolph",
     "engines": {
         "vscode": "^1.5.0"
