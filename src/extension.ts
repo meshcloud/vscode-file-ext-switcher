@@ -14,15 +14,16 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 function addCommand(context: vscode.ExtensionContext, extensions: string[]) {
+    
     context.subscriptions.push(vscode.commands.registerCommand('fileextswitch' + extensions[0], () => {
         const current = vscode.window.activeTextEditor.document.fileName;
         
         for (let ext of extensions) {
             const next = path.join(path.dirname(current), path.basename(current, path.extname(current))) + ext;
-        
+            const activeColumn = vscode.window.activeTextEditor.viewColumn;
             if (fs.existsSync(next)) {
                 vscode.workspace.openTextDocument(next)
-                    .then(x => vscode.window.showTextDocument(x));                    
+                    .then(x => vscode.window.showTextDocument(x, activeColumn));                    
                 return;
             }
         }
