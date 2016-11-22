@@ -33,9 +33,3 @@ Commands that switch to one of two file types (.css or .scss) first attempt to s
 
 ## Contributing
 Please report issues and submit pull-requests to https://github.com/JohannesRudolph/vscode-file-ext-switcher
-
-## Release Notes
-
-### 1.0.0
-
-Initial release
