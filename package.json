@@ -1,14 +1,14 @@
 {
     "name": "file-ext-switcher",
     "displayName": "file-ext-switcher",
-    "description": "Add shortcuts to quickly switch between different files with the same name before the extension (e.g. angular2 component .ts, .css and .html files).",
-    "version": "0.0.1",
+    "description": "Quickly switch between different files with the same name before the extension (e.g. angular2 component .ts, .css and .html files).",
+    "version": "1.0",    
     "publisher": "JohannesRudolph",
     "engines": {
         "vscode": "^1.5.0"
     },
     "categories": [
-        "Other"
+        "Productivity"
     ],
     "activationEvents": [
         "onCommand:fileextswitch.css",
