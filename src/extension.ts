@@ -11,6 +11,7 @@ export function activate(context: vscode.ExtensionContext) {
     addCommand(context, ['.css', '.scss']);
     addCommand(context, ['.html']);
     addCommand(context, ['.js', '.ts']);
+    addCommand(context, ['.ts', '.js']);
 }
 
 function addCommand(context: vscode.ExtensionContext, extensions: string[]) {
