@@ -17,7 +17,8 @@
     "activationEvents": [
         "onCommand:fileextswitch.css",
         "onCommand:fileextswitch.html",
-        "onCommand:fileextswitch.js"
+        "onCommand:fileextswitch.js",
+        "onCommand:fileextswitch.ts"
     ],
     "main": "./out/src/extension",
     "contributes": {
