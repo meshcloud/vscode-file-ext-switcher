@@ -15,7 +15,10 @@
         "url": "https://github.com/JohannesRudolph/vscode-file-ext-switcher"
     },
     "activationEvents": [
-        "onCommand:fileextswitch"
+        "onCommand:fileextswitch",
+        "onCommand:fileextswitch.css",
+        "onCommand:fileextswitch.html",
+        "onCommand:fileextswitch.js"
     ],
     "main": "./out/src/extension",
     "contributes": {
@@ -23,6 +26,18 @@
             {
                 "command": "fileextswitch",
                 "title": "Switch: to a companion file with the extension specified in the command arguments."
+            },
+            {
+                "command": "fileextswitch.css",
+                "title": "(Deprecated) Switch: to .css or .scss"
+            },
+            {
+                "command": "fileextswitch.html",
+                "title": "(Deprecated) Switch: to .html"
+            },
+            {
+                "command": "fileextswitch.js",
+                "title": "(Deprecated) Switch: to .js or .ts"
             }
         ]
     },

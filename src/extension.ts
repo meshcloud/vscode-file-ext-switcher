@@ -15,21 +15,38 @@ interface CommandArguments {
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-    context.subscriptions.push(vscode.commands.registerCommand('fileextswitch', (args: any) => {
-        const current = vscode.window.activeTextEditor.document.fileName;
-        const validArgs = parseArgs(args);
+    addLegacyCommand(context, ['.css', '.scss']);
+    addLegacyCommand(context, ['.html']);
+    addLegacyCommand(context, ['.js', '.ts']);
 
-        const dir = path.dirname(current);
-        fs.readdir(dir, (err, files) => {
-            if (err) {
-                vscode.window.showErrorMessage("fileextswitch encountered error: " + err);
-                return;
-            }
-            tryOpenCompanionFile(current, validArgs, files);
-        });
-    }));
-
+    context.subscriptions.push(
+        vscode.commands.registerCommand('fileextswitch', (args: any) => switchToFile(args))
+    );
 }
+
+function addLegacyCommand(context: vscode.ExtensionContext, extensions: string[]) {
+    const cmd = 'fileextswitch' + extensions[0]
+    context.subscriptions.push(vscode.commands.registerCommand(cmd, _ => {
+        const warn = `${cmd} is deprecated. Please use the new and more powerful file-ext-switcher configuration: https://goo.gl/gsCYrW `;
+        vscode.window.showWarningMessage(warn);
+        switchToFile({ extensions: extensions });
+    }));
+}
+
+function switchToFile(args: any) {
+    const current = vscode.window.activeTextEditor.document.fileName;
+    const validArgs = parseArgs(args);
+
+    const dir = path.dirname(current);
+    fs.readdir(dir, (err, files) => {
+        if (err) {
+            vscode.window.showErrorMessage("fileextswitch encountered error: " + err);
+            return;
+        }
+        tryOpenCompanionFile(current, validArgs, files);
+    });
+};
+
 function showKeybindingWarning() {
     const warn = `Your keybinding for fileextswitch is incorrectly configured. See https://goo.gl/gsCYrW for how to set up correct configuration.`;
     vscode.window.showWarningMessage(warn);
