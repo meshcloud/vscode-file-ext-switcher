@@ -18,14 +18,15 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(vscode.commands.registerCommand('fileextswitch', (args: any) => {
         const current = vscode.window.activeTextEditor.document.fileName;
         const validArgs = parseArgs(args);
-        for (let ext of validArgs.extensions) {
-            const next = path.join(path.dirname(current), path.basename(current, path.extname(current))) + ext;
 
-            if (fs.existsSync(next)) {
-                openFile(next);
+        const dir = path.dirname(current);
+        fs.readdir(dir, (err, files) => {
+            if (err) {
+                vscode.window.showErrorMessage("fileextswitch encountered error: " + err);
                 return;
             }
-        }
+            tryOpenCompanionFile(current, validArgs, files);
+        });
     }));
 
 }
@@ -48,11 +49,39 @@ function parseArgs(args: any): CommandArguments {
     };
 }
 
-function openFile(path: string) {
+function tryOpenCompanionFile(currentPath: string, args: CommandArguments, files: string[]) {
+    const currentFile = path.basename(currentPath); // this gives us the file with all extensions
+    const components = currentFile.split('.');
+
+    const filesMap = {};
+    files.forEach(x => filesMap[x] = x);
+
+    // now lets try changing the last component, then the last 2 etc.
+    const minimumComponentMatches = 1;
+    for (let i = components.length; i >= minimumComponentMatches; i--) {
+        const nextComponents = components.slice(0, i);
+        const nextBase = nextComponents.join('.');
+
+        // try all extensions
+        for (let e of args.extensions) {
+            const nextFile = nextBase + e;
+            const exists = filesMap[nextFile];
+            if (exists) {
+                const dir = path.dirname(currentPath);
+                openFile(path.join(dir, nextFile));
+                return;
+            }
+        }
+    }
+}
+
+function openFile(path: string): boolean {
     const activeColumn = vscode.window.activeTextEditor.viewColumn;
     vscode.workspace
         .openTextDocument(path)
         .then(x => vscode.window.showTextDocument(x, activeColumn));
+
+    return true;
 }
 
 // this method is called when your extension is deactivated
