@@ -8,29 +8,31 @@ Note: if you prefer a graphical and more flexible companion file switcher and ca
 
 ## Features
 
-
-
+* Switch to any 
 * Switch: to .css or .scss
 * Switch: to .html
 * Switch: to .js or .ts
 
 Commands that switch to one of two file types (.css or .scss) first attempt to switch to the first-listed file extension. 
 
-> Tip: Bind your custom keybindings to the `fileextswitch.*` commands for super-fast switching. To stay on your home-row, you can use these bindings: 
+> Tip: Bind your custom keybindings to the `fileextswitch` commands for super-fast switching. To stay on your home-row, you can use these bindings: 
 ```
 {
     "key": "ctrl+shift+j",
-    "command": "fileextswitch.html",
+    "command": "fileextswitch",
+    "args": { "extensions": [".html"] }, 
     "when": "editorTextFocus"
 },
 {
     "key": "ctrl+shift+k",
-    "command": "fileextswitch.js",
+    "command": "fileextswitch",
+    "args": { "extensions": [".js", ".ts"] }, 
     "when": "editorTextFocus"
 },
 {
     "key": "ctrl+shift+l",
-    "command": "fileextswitch.css",
+    "command": "fileextswitch",
+    "args": { "extensions": [".css", ".scsss"] }, 
     "when": "editorTextFocus"
 }
 ```
