@@ -47,7 +47,7 @@ Commands that switch to one of two file types (.css or .scss) first attempt to s
 ```
 
 When invoked, the command will look for files in the same directory of the current file, which share at least one base component (e.g. "app" for a file named "app.module.ts"). 
-Matching is _greedy_ e.g. it will try to match as many base components ass posible.
+Matching is _greedy_ e.g. it will try to match as many base components as posible.
 
 ## Contributing
 Please report issues and submit pull-requests to https://github.com/JohannesRudolph/vscode-file-ext-switcher
