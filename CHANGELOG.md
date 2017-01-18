@@ -1,5 +1,10 @@
 ## Release Notes
 
+### 2.0.1
+
+- Fix a bug that caused switching between a `x.spec.ts` and a `x.ts` file to fail occassionally
+
+
 ### 2.0
 
 - Use command arguments added in VSCode 1.8 to make file switching even more flexible
