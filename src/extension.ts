@@ -81,22 +81,34 @@ function tryOpenCompanionFile(currentPath: string, args: CommandArguments, files
     // now lets try changing the last component, then the last 2 etc.
     const minimumComponentMatches = 1;
     const currentExtension = 1;
-    for (let i = components.length - currentExtension; i >= minimumComponentMatches; i--) {
-        const nextComponents = components.slice(0, i);
-        const nextBase = nextComponents.join('.');
+    const candidates = [];
 
-        // try all extensions
-        for (let e of args.extensions) {
+    // try all extensions
+    for (let e of args.extensions) {
+        for (let i = components.length - currentExtension; i >= minimumComponentMatches; i--) {
+            const nextComponents = components.slice(0, i);
+            const nextBase = nextComponents.join('.');
+
             const nextFile = nextBase + e;
             const exists = filesMap[nextFile];
-            if (exists && nextFile !== currentFile) {
+
+            if (exists) {
                 const dir = path.dirname(currentPath);
                 const filePath = path.join(dir, nextFile);
-                const column = determineColumn(args.useOtherColumn)
-                openFile(filePath, column);
-                return;
+
+                if (candidates.indexOf(filePath) === -1) {
+                    candidates.push(filePath);
+                }
             }
         }
+    }
+
+    const selfIndex = candidates.indexOf(currentPath);
+    const nextIndex = (selfIndex + 1) % candidates.length;
+
+    const candidate = candidates[nextIndex];
+    if (candidate) {
+        openFile(candidate, determineColumn(args.useOtherColumn));
     }
 }
 
