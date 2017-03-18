@@ -1,13 +1,23 @@
 # file-ext-switcher 
 
 *file-ext-switcher* allows you to quickly switch to a file with the same name but with a different extension (companion file), e.g. `file.html` and `file.js`.
-This is very useful for angular2 component development where you need to quickly switch between code, template and style files.   
+This is very useful for angular component development where you need to quickly switch between code, template and style files.
 
 This extension provides key-bindable VS code commands for every supported file type. 
-Note: if you prefer a graphical and more flexible companion file switcher and can live without keybindings, check out the excellent [companion-file-switcher](https://marketplace.visualstudio.com/items?itemName=ClementVidal.companion-file-switcher) extension. 
 
 ## Features
-Switch to any companion file in the same directory that shares at least one file-name component, e.g.:
+Switch to *any companion file* in the same directory that shares at least one file-name component. Options (command args):
+```
+{
+    "extensions": [
+        ".js", // extensions to try (in order)
+        ".ts"
+    ],
+    "useOtherColumn": true // open companion file in other editor column (default false)
+}
+```
+
+Use file-ext-switcher for example to switch between.:
 
 * Switch: to .css or .scss
 * Switch: to .html
@@ -18,7 +28,7 @@ Commands that switch to one of two file types (.css or .scss) first attempt to s
 
 ## Usage
 
-> Tip: Bind your custom keybindings to the `fileextswitch` commands for super-fast switching. For example, use these commands for angular2 development while staying on your keyboard's home-row: 
+> Tip: Bind your custom keybindings to the `fileextswitch` commands for super-fast switching. For example, use these commands for angular development while staying on your keyboard's home-row: 
 ```
 {
     "key": "ctrl+shift+j",
@@ -51,3 +61,6 @@ Matching is _greedy_ e.g. it will try to match as many base components as posibl
 
 ## Contributing
 Please report issues and submit pull-requests to https://github.com/JohannesRudolph/vscode-file-ext-switcher
+
+## Acknowledgements
+If you prefer a graphical companion file switcher and can live without keybindings, check out the excellent [companion-file-switcher](https://marketplace.visualstudio.com/items?itemName=ClementVidal.companion-file-switcher) extension. 

@@ -1,5 +1,10 @@
 ## Release Notes
 
+### 2.1.1
+
+- Add flag to command arguments to control opening of companion file in a different editor column
+
+
 ### 2.0.1
 
 - Fix a bug that caused switching between a `x.spec.ts` and a `x.ts` file to fail occassionally

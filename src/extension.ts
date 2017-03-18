@@ -10,6 +10,10 @@ interface CommandArguments {
      * The extensions to switch to, need to have a leading period
      */
     extensions: string[];
+    /**
+     * Open the file in a different editor column. Default false
+     */
+    useOtherColumn: boolean;
 }
 
 // this method is called when your extension is activated
@@ -62,6 +66,7 @@ function parseArgs(args: any): CommandArguments {
     }
 
     return {
+        useOtherColumn: args.useOtherColumn || false,
         extensions: args.extensions
     };
 }
@@ -86,18 +91,28 @@ function tryOpenCompanionFile(currentPath: string, args: CommandArguments, files
             const exists = filesMap[nextFile];
             if (exists && nextFile !== currentFile) {
                 const dir = path.dirname(currentPath);
-                openFile(path.join(dir, nextFile));
+                const filePath = path.join(dir, nextFile);
+                const column = determineColumn(args.useOtherColumn)
+                openFile(filePath, column);
                 return;
             }
         }
     }
 }
 
-function openFile(path: string): boolean {
-    const activeColumn = vscode.window.activeTextEditor.viewColumn;
+function determineColumn(useOtherColumn: boolean): number {
+    const active = vscode.window.activeTextEditor.viewColumn;
+    if (!useOtherColumn) {
+        return active;
+    }
+
+    return active === 1 ? 2 : 1;
+}
+
+function openFile(path: string, column: number): boolean {
     vscode.workspace
         .openTextDocument(path)
-        .then(x => vscode.window.showTextDocument(x, activeColumn));
+        .then(x => vscode.window.showTextDocument(x, column));
 
     return true;
 }
