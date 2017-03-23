@@ -19,22 +19,9 @@ interface CommandArguments {
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-    addLegacyCommand(context, ['.css', '.scss']);
-    addLegacyCommand(context, ['.html']);
-    addLegacyCommand(context, ['.js', '.ts']);
-
     context.subscriptions.push(
         vscode.commands.registerCommand('fileextswitch', (args: any) => switchToFile(args))
     );
-}
-
-function addLegacyCommand(context: vscode.ExtensionContext, extensions: string[]) {
-    const cmd = 'fileextswitch' + extensions[0]
-    context.subscriptions.push(vscode.commands.registerCommand(cmd, _ => {
-        const warn = `${cmd} is deprecated. Please use the new and more powerful file-ext-switcher configuration: https://goo.gl/gsCYrW `;
-        vscode.window.showWarningMessage(warn);
-        switchToFile({ extensions: extensions });
-    }));
 }
 
 function switchToFile(args: any) {
