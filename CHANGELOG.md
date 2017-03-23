@@ -1,5 +1,11 @@
 ## Release Notes
 
+### 3.0
+- Sort files in a stable order to allow cyclic switching between multiple extensions bound to a single key shortcut
+- Remove deprecated commands for fixed .html, .js, .css extensions
+
+Thanks to https://github.com/duncanbeevers for these awesome contributions!
+
 ### 2.1.1
 
 - Add flag to command arguments to control opening of companion file in a different editor column

@@ -6,7 +6,7 @@ This is very useful for angular component development where you need to quickly 
 This extension provides key-bindable VS code commands for every supported file type. 
 
 ## Features
-Switch to *any companion file* in the same directory that shares at least one file-name component. Options (command args):
+Switch to **any companion file** in the same directory that shares at least one file-name component. Options (command args):
 ```
 {
     "extensions": [
@@ -17,7 +17,7 @@ Switch to *any companion file* in the same directory that shares at least one fi
 }
 ```
 
-Use file-ext-switcher for example to switch between.:
+Use file-ext-switcher for example to switch between:
 
 * Switch: to .css or .scss
 * Switch: to .html
@@ -28,36 +28,56 @@ Commands that switch to one of two file types (.css or .scss) first attempt to s
 
 ## Usage
 
-> Tip: Bind your custom keybindings to the `fileextswitch` commands for super-fast switching. For example, use these commands for angular development while staying on your keyboard's home-row: 
+Bind your custom keybindings to the `fileextswitch` commands for super-fast switching. 
+
+### Open companion file in other column
+These shortcuts open a companion file in the other editor column (note the `useOtherColumn: true`), so you can quickly open your `component.ts` definition next to your `component.html`:
+
 ```
 {
     "key": "ctrl+shift+j",
     "command": "fileextswitch",
-    "args": { "extensions": [".html"] }, 
+    "args": { "extensions": [".html"], "useOtherColumn": true }, 
     "when": "editorTextFocus"
 },
 {
     "key": "ctrl+shift+k",
     "command": "fileextswitch",
-    "args": { "extensions": [".js", ".ts"] }, 
+    "args": { "extensions": [".js", ".ts"], "useOtherColumn": true }, 
     "when": "editorTextFocus"
 },
 {
     "key": "ctrl+shift+l",
     "command": "fileextswitch",
-    "args": { "extensions": [".css", ".scss"] }, 
+    "args": { "extensions": [".css", ".scss"], "useOtherColumn": true }, 
     "when": "editorTextFocus"
 },
 {
     "key": "ctrl+shift+;",
     "command": "fileextswitch",
-    "args": { "extensions": [".spec.ts"] }, 
+    "args": { "extensions": [".spec.ts"], "useOtherColumn": true }, 
     "when": "editorTextFocus"
 }
 ```
 
-When invoked, the command will look for files in the same directory of the current file, which share at least one base component (e.g. "app" for a file named "app.module.ts"). 
-Matching is _greedy_ e.g. it will try to match as many base components as posible.
+### Cycle through companion files
+
+When invoked, the command will look for files in the same directory of the current file, which share at least one base component (e.g. "app" for a file named "app.module.ts"). Matching follows the order of specified extensions, locating the current file's extension in the list and then cycling through to the next file extension. This allows e.g. to generate a keyboard shortcut for cyclic switching between file extensions: 
+
+```
+{
+        "key": "ctrl+shift+i",
+        "command": "fileextswitch",
+        "args": {
+            "extensions": [
+                ".ts",
+                ".html",
+                ".scss"
+            ]
+        },
+        "when": "editorTextFocus"
+    }
+```
 
 ## Contributing
 Please report issues and submit pull-requests to https://github.com/JohannesRudolph/vscode-file-ext-switcher
