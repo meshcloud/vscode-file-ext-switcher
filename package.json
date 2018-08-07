@@ -2,7 +2,7 @@
     "name": "file-ext-switcher",
     "displayName": "file-ext-switcher",
     "description": "Quickly switch between different files with the same name before the extension (e.g. angular2 component .ts, .css and .html files).",
-    "version": "3.0.0",
+    "version": "3.2.0",
     "publisher": "JohannesRudolph",
     "engines": {
         "vscode": "^1.8.0"
@@ -32,7 +32,8 @@
     "scripts": {
         "vscode:prepublish": "tsc -p ./",
         "compile": "tsc -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install"
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "publish": "vsce publish"
     },
     "devDependencies": {
         "typescript": "^2.0.3",
