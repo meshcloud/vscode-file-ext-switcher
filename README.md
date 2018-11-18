@@ -1,6 +1,6 @@
 # file-ext-switcher 
 
-Once **[setted up](#setup)** *file-ext-switcher* allows you to quickly switch via keyboard shortcuts between files which share same name but differ by extension (AKA companion files, e.g. from `file.html` to `file.js`).
+Once **[set up](#setup)** *file-ext-switcher* allows you to quickly switch via keyboard shortcuts between files which share same name but differ by extension (AKA companion files, e.g. from `file.html` to `file.js`).
 This is very useful for Angular (and even AngularJs) component development where you need to quickly switch between code, template, style and test files.
 
 > This extension provides key-bindable VS code commands for every supported file type that you specify. 
@@ -23,7 +23,7 @@ Bind your custom keybindings to the `fileextswitch` commands for super-fast swit
 3. Add one or more custom *file-ext-switcher* keybinding into the file
 
 A sample keybinding looks like this: 
-```json
+```javascript
 {
     "key": "ctrl+shift+j",
     "command": "fileextswitch",
