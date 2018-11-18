@@ -1,48 +1,40 @@
 # file-ext-switcher 
 
-*file-ext-switcher* allows you to quickly switch to a file with the same name but with a different extension (companion file), e.g. `file.html` and `file.js`.
-This is very useful for angular component development where you need to quickly switch between code, template and style files.
+Once **[set up](#setup)** *file-ext-switcher* allows you to quickly switch via keyboard shortcuts between files which share same name but differ by extension (AKA companion files, e.g. from `file.html` to `file.js`).
+This is very useful for Angular (and even AngularJs) component development where you need to quickly switch between code, template, style and test files.
 
-> This extension provides key-bindable VS code commands for every supported file type. 
-**You must set up bindings in** `keybindings.json`, **to use this extension, see [Usage](#usage)**.
+> This extension provides key-bindable VS code commands for every supported file type that you specify. 
+**Please note that you must set up bindings first, see [Setup](#setup)**.
 
 ## Features
-Switch to **any companion file** in the same directory that shares at least one file-name component. Use file-ext-switcher for example to switch between:
+Switch to/between **any companion file(s)** in the same directory that shares at least one file-name component. Examples of usage:
 
-* Switch: to .css or .scss
-* Switch: to .html
-* Switch: to .js or .ts
-* Switch: to .spec.ts
+* Switch to styles `.css` or `.scss`
+* Open `.html` template in another editor column in split mode
+* Switch between `.ts` and generated `.js` files
+* Switch from `.ts` to `.spec.ts` and back 
 
-Commands that switch to one of two file types (.css or .scss) first attempt to switch to the first-listed file extension. 
-
-## Usage
+## Setup
 
 Bind your custom keybindings to the `fileextswitch` commands for super-fast switching. 
-Open `Preferences: Open Keyboard Shortcuts` in VSCode and then click edit `keybindings.json`. 
 
-A sample keybinding for file-ext-switcher looks like this: 
-```json
+1. In VSCode open Command Palette
+2. Type in and select `Preferences: Open Keyboard Shortcuts File`
+3. Add one or more custom *file-ext-switcher* keybinding into the file
+
+A sample keybinding looks like this: 
+```javascript
 {
     "key": "ctrl+shift+j",
     "command": "fileextswitch",
-    "args": { "extensions": [".html"], "useOtherColumn": true }, 
+    "args": { 
+        "extensions": [".html", ".ts",], // extensions to switch to (in the exact order)
+        "useOtherColumn": true // open companion file in other editor column (default false)
+    }, 
     "when": "editorTextFocus"
 },
 ```
  
- The `args` parameter supports the following options and configures the behavior of file-ext-switcher:
-
-```js
-{
-    "extensions": [
-        ".js", // extensions to try (in order)
-        ".ts"
-    ],
-    "useOtherColumn": true // open companion file in other editor column (default false)
-}
-```
-
 ## Example Keybindings
 
 ### Open companion file in other column
