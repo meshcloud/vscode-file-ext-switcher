@@ -65,37 +65,29 @@ function tryOpenCompanionFile(currentPath: string, args: CommandArguments, files
     const filesMap = {};
     files.forEach(x => filesMap[x] = x);
 
-    // now lets try changing the last component, then the last 2 etc.
-    const minimumComponentMatches = 1;
-    const currentExtension = 1;
-    const candidates = [];
+    // try the biggest match first (ie. match with .spec.ts before .ts)
+    for (let i = 1; i < components.length; i++) {
+        const lastComponents = components.slice(i);
+        const extension = '.' + lastComponents.join('.');
 
-    // try all extensions
-    for (let e of args.extensions) {
-        for (let i = components.length - currentExtension; i >= minimumComponentMatches; i--) {
-            const nextComponents = components.slice(0, i);
-            const nextBase = nextComponents.join('.');
+        const index = args.extensions.indexOf(extension);
+        if (index !== -1) {
+            const base = components.slice(0, i).join('.');
 
-            const nextFile = nextBase + e;
-            const exists = filesMap[nextFile];
-
-            if (exists) {
-                const dir = path.dirname(currentPath);
-                const filePath = path.join(dir, nextFile);
-
-                if (candidates.indexOf(filePath) === -1) {
-                    candidates.push(filePath);
+            // try all the other extensions, starting with the one after the match
+            for (let j = 1; j < args.extensions.length; j++) {
+                const nextExtension = args.extensions[(index + j) % args.extensions.length];
+                const nextFile = base + nextExtension;
+                
+                const exists = filesMap[nextFile];
+                if (exists) {
+                    const dir = path.dirname(currentPath);
+                    const filePath = path.join(dir, nextFile);
+                    openFile(filePath, determineColumn(args.useOtherColumn));
+                    return;
                 }
             }
         }
-    }
-
-    const selfIndex = candidates.indexOf(currentPath);
-    const nextIndex = (selfIndex + 1) % candidates.length;
-
-    const candidate = candidates[nextIndex];
-    if (candidate) {
-        openFile(candidate, determineColumn(args.useOtherColumn));
     }
 }
 
